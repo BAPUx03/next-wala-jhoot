@@ -1,0 +1,170 @@
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft, Share2 } from 'lucide-react';
+
+interface Question {
+  question: string;
+  options: string[];
+  // All answers lead to funny result, no "correct" answer
+}
+
+const questions: Question[] = [
+  {
+    question: "Agar Monday off ho jaye toh kya karoge?",
+    options: ["So jaunga 😴", "Ghumne jaunga 🚗", "Kuch nahi, boring 😑", "Netflix 🍿"]
+  },
+  {
+    question: "Crush ne seen karke ignore kiya, ab?",
+    options: ["Dobara message 📱", "Story lagaunga 😤", "Move on 💔", "Unfollow 🚫"]
+  },
+  {
+    question: "Free ka pizza mil raha hai, kitne slice?",
+    options: ["2 slice bas 🍕", "4 slice 🍕🍕", "Poora pizza 😋", "Diet pe hoon ❌"]
+  },
+  {
+    question: "3 AM ko neend nahi aa rahi, kya karte ho?",
+    options: ["Phone scroll 📱", "Existential crisis 🌌", "Fridge raid 🍪", "Rote hain 😭"]
+  },
+  {
+    question: "Salary aate hi kya karte ho?",
+    options: ["Bills pay 💸", "Shopping 🛍️", "Party 🎉", "EMI 😢"]
+  }
+];
+
+const results = [
+  { title: "Certified Overthinker 🧠", description: "Tu sochta bohot hai, karta kam hai. Classic!", emoji: "🤯" },
+  { title: "Professional Procrastinator 🦥", description: "Kal karna tha, aaj bhi kal pe chhod diya. Legend!", emoji: "😴" },
+  { title: "Emotional Support Friend 💕", description: "Sabko advice deta hai, khud follow nahi karta!", emoji: "🤡" },
+  { title: "Unbothered King/Queen 👑", description: "Duniya jale, tu chill kare. Respect!", emoji: "😎" },
+  { title: "Delulu Main Character 🎬", description: "Life tera movie hai, baaki sab extras!", emoji: "✨" },
+];
+
+interface FunnyQuizProps {
+  onBack: () => void;
+}
+
+export const FunnyQuiz = ({ onBack }: FunnyQuizProps) => {
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [answers, setAnswers] = useState<number[]>([]);
+  const [showResult, setShowResult] = useState(false);
+  const [result, setResult] = useState(results[0]);
+
+  const handleAnswer = (answerIndex: number) => {
+    const newAnswers = [...answers, answerIndex];
+    setAnswers(newAnswers);
+
+    if (currentQuestion < questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+    } else {
+      // Calculate "result" (it's random but seems calculated 😏)
+      const randomResult = results[Math.floor(Math.random() * results.length)];
+      setResult(randomResult);
+      setShowResult(true);
+    }
+  };
+
+  const resetQuiz = () => {
+    setCurrentQuestion(0);
+    setAnswers([]);
+    setShowResult(false);
+  };
+
+  const shareResult = () => {
+    const text = `Mera result: ${result.title}\n${result.description}\n\nTu bhi try kar 👉 ${window.location.origin}`;
+    if (navigator.share) {
+      navigator.share({ text });
+    } else {
+      navigator.clipboard.writeText(text);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-background p-4">
+      <Button
+        variant="ghost"
+        onClick={onBack}
+        className="mb-4 flex items-center gap-2"
+      >
+        <ArrowLeft size={20} />
+        Back
+      </Button>
+
+      <div className="max-w-lg mx-auto">
+        {!showResult ? (
+          <div className="bg-card border-4 border-black rounded-2xl p-8 shadow-brutal animate-fade-in">
+            {/* Progress */}
+            <div className="flex gap-2 mb-6">
+              {questions.map((_, i) => (
+                <div
+                  key={i}
+                  className={`flex-1 h-2 rounded-full ${
+                    i <= currentQuestion ? 'bg-primary' : 'bg-muted'
+                  }`}
+                />
+              ))}
+            </div>
+
+            <div className="text-center mb-2">
+              <span className="text-sm text-muted-foreground">
+                Question {currentQuestion + 1}/{questions.length}
+              </span>
+            </div>
+
+            <h2 className="text-2xl font-bold text-center mb-8 text-foreground">
+              {questions[currentQuestion].question}
+            </h2>
+
+            <div className="space-y-4">
+              {questions[currentQuestion].options.map((option, i) => (
+                <button
+                  key={i}
+                  onClick={() => handleAnswer(i)}
+                  className="w-full p-4 text-left rounded-xl border-2 border-black bg-card hover:bg-primary/20 hover:border-primary transition-all font-medium text-foreground"
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="text-center animate-fade-in">
+            <div className="bg-card border-4 border-black rounded-2xl p-8 shadow-brutal">
+              <div className="text-8xl mb-4">{result.emoji}</div>
+              
+              <h2 className="text-3xl font-bold mb-4 text-foreground">
+                {result.title}
+              </h2>
+              
+              <p className="text-xl text-muted-foreground mb-8">
+                {result.description}
+              </p>
+
+              <div className="bg-primary/20 rounded-xl p-4 mb-6">
+                <p className="text-sm text-foreground">
+                  Confidence zyada hai, logic kam 🤡
+                </p>
+              </div>
+
+              <div className="flex gap-3">
+                <Button
+                  onClick={shareResult}
+                  className="flex-1 bg-gradient-to-r from-pink-500 to-purple-500 text-white border-2 border-black"
+                >
+                  <Share2 className="mr-2" size={16} />
+                  Share 📤
+                </Button>
+                <Button
+                  onClick={resetQuiz}
+                  variant="outline"
+                  className="flex-1 border-2 border-black"
+                >
+                  Again 🔄
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};

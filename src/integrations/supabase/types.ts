@@ -14,7 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      birthday_links: {
+        Row: {
+          created_at: string
+          id: string
+          recipient_name: string
+          relation: string
+          sender_name: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          recipient_name: string
+          relation: string
+          sender_name?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          recipient_name?: string
+          relation?: string
+          sender_name?: string | null
+        }
+        Relationships: []
+      }
+      community_messages: {
+        Row: {
+          created_at: string
+          id: string
+          is_bot: boolean
+          message: string
+          username: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_bot?: boolean
+          message: string
+          username: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_bot?: boolean
+          message?: string
+          username?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
