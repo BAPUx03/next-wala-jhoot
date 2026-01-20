@@ -19,11 +19,12 @@ import { DontClickButton } from '@/components/DontClickButton';
 import { TimeWasteCounter } from '@/components/TimeWasteCounter';
 import { CertificateGenerator } from '@/components/CertificateGenerator';
 import { TruthMeter } from '@/components/TruthMeter';
+import { TruthDare } from '@/components/TruthDare';
+import { Footer } from '@/components/Footer';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-type Feature = 'home' | 'next-button' | 'birthday' | 'quiz' | 'qa' | 'random' | 'chatbot' | 'community' | 'rate' | 'future' | 'mirror' | 'dashboard' | 'personality' | 'expectation' | 'dontclick' | 'timewaste' | 'certificate' | 'truth';
-
+type Feature = 'home' | 'next-button' | 'birthday' | 'quiz' | 'qa' | 'random' | 'chatbot' | 'community' | 'rate' | 'future' | 'mirror' | 'dashboard' | 'personality' | 'expectation' | 'dontclick' | 'timewaste' | 'certificate' | 'truth' | 'truthdare';
 const Index = () => {
   const [currentFeature, setCurrentFeature] = useState<Feature>('home');
   const [attemptCount, setAttemptCount] = useState(0);
@@ -42,6 +43,7 @@ const Index = () => {
             if (feature === 'chatbot') setChatbotOpen(true);
             else setCurrentFeature(feature as Feature);
           }} />
+          <Footer />
         </div>
       )}
 
@@ -74,6 +76,7 @@ const Index = () => {
       {currentFeature === 'timewaste' && <TimeWasteCounter onBack={goBack} />}
       {currentFeature === 'certificate' && <CertificateGenerator onBack={goBack} />}
       {currentFeature === 'truth' && <TruthMeter onBack={goBack} />}
+      {currentFeature === 'truthdare' && <TruthDare onBack={goBack} />}
 
       {currentFeature === 'home' && !chatbotOpen && <ChatbotTrigger onClick={() => setChatbotOpen(true)} />}
       <RoastChatbot isOpen={chatbotOpen} onClose={() => setChatbotOpen(false)} />
