@@ -1,4 +1,4 @@
-import { MousePointer2, Gift, Brain, HelpCircle, Shuffle, MessageCircle, Users, Star, Sparkles, Camera, BarChart3, Fingerprint, Drama, XCircle, Clock, Award, Search } from 'lucide-react';
+import { MousePointer2, Gift, Brain, HelpCircle, Shuffle, MessageCircle, Users, Star, Sparkles, Camera, BarChart3, Fingerprint, Drama, XCircle, Clock, Award, Search, Flame } from 'lucide-react';
 
 interface FeatureCardProps {
   emoji: string;
@@ -35,6 +35,7 @@ export const FeatureGrid = ({ onFeatureSelect }: FeatureGridProps) => {
   const features = [
     { emoji: "🎯", icon: <MousePointer2 size={20} />, title: "Try Next Button", description: "Pakad sake toh pakad 😏", color: "hover:bg-pink-50", feature: "next-button" },
     { emoji: "🎂", icon: <Gift size={20} />, title: "Birthday Prank", description: "Gift? Haan haan... 🎁🤡", color: "hover:bg-orange-50", feature: "birthday" },
+    { emoji: "🎭", icon: <Flame size={20} />, title: "Truth & Dare", description: "Sach ya himmat? 😈🔥", color: "hover:bg-gradient-to-r hover:from-blue-50 hover:to-orange-50", feature: "truthdare" },
     { emoji: "⭐", icon: <Star size={20} />, title: "Rate Yourself", description: "Website judge karegi 😈", color: "hover:bg-yellow-50", feature: "rate" },
     { emoji: "🔮", icon: <Sparkles size={20} />, title: "Future Predictor", description: "100% useless predictions 🙃", color: "hover:bg-purple-50", feature: "future" },
     { emoji: "🪞", icon: <Camera size={20} />, title: "Mirror Mode", description: "Sach sunne ki himmat? 💀", color: "hover:bg-red-50", feature: "mirror" },
