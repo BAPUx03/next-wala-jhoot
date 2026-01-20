@@ -1,4 +1,4 @@
-import { Instagram, Globe, Heart, Send, ExternalLink } from 'lucide-react';
+import { Instagram, Globe, Heart } from 'lucide-react';
 
 export const Footer = () => {
   return (
@@ -17,45 +17,20 @@ export const Footer = () => {
               href="https://www.instagram.com/pruthvirajsinh__makwana/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-full font-bold hover:scale-105 transition-transform border-2 border-white text-sm sm:text-base"
+              className="flex items-center gap-2 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-bold hover:scale-105 transition-transform border-2 border-white text-sm sm:text-base"
             >
               <Instagram size={18} />
-              <span className="hidden sm:inline">Instagram</span>
-              <span className="sm:hidden">Insta</span>
-            </a>
-            <a
-              href="https://t.me/pruthvirajsinh_makwana"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-[#0088cc] text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-full font-bold hover:scale-105 transition-transform border-2 border-white text-sm sm:text-base"
-            >
-              <Send size={18} />
-              <span className="hidden sm:inline">Telegram</span>
-              <span className="sm:hidden">TG</span>
+              Instagram
             </a>
             <a
               href="https://pruthvirajsinh.in"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-primary text-black px-4 sm:px-6 py-2.5 sm:py-3 rounded-full font-bold hover:scale-105 transition-transform border-2 border-white text-sm sm:text-base"
+              className="flex items-center gap-2 bg-primary text-black px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-bold hover:scale-105 transition-transform border-2 border-white text-sm sm:text-base"
             >
               <Globe size={18} />
               Portfolio
             </a>
-          </div>
-
-          {/* Quick Links */}
-          <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-400 mb-6">
-            <a 
-              href="https://www.instagram.com/pruthvirajsinh__makwana/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center gap-1 hover:text-primary transition-colors"
-            >
-              DM for collab <ExternalLink size={12} />
-            </a>
-            <span className="text-gray-600">•</span>
-            <span>Report bug? 🐛 Chill kar, feature hai 😏</span>
           </div>
         </div>
 
