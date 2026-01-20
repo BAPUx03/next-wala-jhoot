@@ -6,6 +6,7 @@ import { PhotoUpload } from '@/components/PhotoUpload';
 import { ViralTease } from '@/components/ViralTease';
 import { FinalCTA } from '@/components/FinalCTA';
 import { HinglishMessages } from '@/components/HinglishMessages';
+import logo from '@/assets/nextwala-logo.png';
 
 type Stage = 'intro' | 'button' | 'progress' | 'photo' | 'viral' | 'final';
 
@@ -40,7 +41,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-500 to-orange-400 relative overflow-hidden">
+    <div className="min-h-screen bg-white relative overflow-hidden">
       <FloatingEmojis />
       
       {stage !== 'intro' && stage !== 'final' && (
@@ -51,19 +52,17 @@ const Index = () => {
         {/* Intro Stage */}
         {stage === 'intro' && (
           <div className="flex flex-col items-center justify-center min-h-screen space-y-8 text-center">
-            <h1 className="text-5xl md:text-7xl font-black text-white drop-shadow-lg animate-bounce">
-              Welcome! 🎉
-            </h1>
-            <p className="text-2xl text-white/90 font-bold">
+            <img src={logo} alt="NextWala Jhoot" className="w-72 md:w-96 animate-bounce" />
+            <p className="text-2xl text-foreground/90 font-bold">
               Ek simple task hai... bas "Next" button click karna hai 😊
             </p>
             <button
               onClick={() => setStage('button')}
-              className="bg-gradient-to-r from-green-400 to-blue-500 text-white px-12 py-6 rounded-3xl text-2xl font-bold border-4 border-black shadow-brutal hover:scale-105 transition-transform animate-pulse"
+              className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-12 py-6 rounded-3xl text-2xl font-bold border-4 border-black shadow-brutal hover:scale-105 transition-transform animate-pulse"
             >
               Shuru Karte Hai! 🚀
             </button>
-            <p className="text-white/70 text-sm">
+            <p className="text-muted-foreground text-sm">
               (Spoiler: Itna easy nahi hai 😈)
             </p>
           </div>
@@ -72,10 +71,10 @@ const Index = () => {
         {/* Running Button Stage */}
         {stage === 'button' && (
           <div className="min-h-screen flex flex-col items-center justify-center">
-            <h2 className="text-4xl font-bold text-white mb-8 text-center">
+            <h2 className="text-4xl font-bold text-foreground mb-8 text-center">
               Bas Next button click karo 🎯
             </h2>
-            <div className="w-full max-w-2xl bg-white/20 backdrop-blur-sm rounded-3xl p-8 border-4 border-black shadow-brutal">
+            <div className="w-full max-w-2xl bg-yellow-50 rounded-3xl p-8 border-4 border-black shadow-brutal">
               <RunningButton
                 onEventualSuccess={() => setStage('progress')}
                 attemptCount={attemptCount}
