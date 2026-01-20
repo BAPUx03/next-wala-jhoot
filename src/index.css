@@ -94,14 +94,25 @@
     75% { transform: rotate(3deg); }
   }
   
-  @keyframes float-up {
+@keyframes float-up {
     0% {
       opacity: 1;
       transform: translateY(0) scale(1);
     }
     100% {
       opacity: 0;
-      transform: translateY(-100px) scale(1.5);
+      transform: translateY(-100vh) scale(1.5) rotate(360deg);
+    }
+  }
+  
+  @keyframes ping-slow {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.5;
     }
   }
   
