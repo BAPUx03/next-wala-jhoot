@@ -11,16 +11,6 @@ const memes = [
   { emoji: "👀", text: "Sus detected" },
   { emoji: "🙈", text: "Galti se mistake" },
   { emoji: "😎", text: "Chad move" },
-  { emoji: "🥲", text: "Pain" },
-  { emoji: "🤯", text: "Mind = Blown" },
-  { emoji: "💅", text: "Slay" },
-  { emoji: "🧠", text: "Big brain time" },
-  { emoji: "☠️", text: "RIP bozo" },
-  { emoji: "😤", text: "Triggered" },
-  { emoji: "🦧", text: "Monke" },
-  { emoji: "🗿", text: "Bruh moment" },
-  { emoji: "✨", text: "Main character energy" },
-  { emoji: "🫠", text: "Melt ho gaya" }
 ];
 
 interface MemePopupData {
@@ -47,14 +37,23 @@ export const useMemePopup = () => {
 
 export const MemePopupProvider = ({ children }: { children: React.ReactNode }) => {
   const [popups, setPopups] = useState<MemePopupData[]>([]);
+  const [lastTrigger, setLastTrigger] = useState(0);
 
   const triggerMeme = useCallback(() => {
-    const meme = memes[Math.floor(Math.random() * memes.length)];
-    const id = Date.now() + Math.random();
+    // Rate limit: max 1 meme per 10 seconds
+    const now = Date.now();
+    if (now - lastTrigger < 10000) return;
     
-    // Random position on screen
-    const x = Math.random() * (window.innerWidth - 200);
-    const y = Math.random() * (window.innerHeight - 150);
+    // Only 5% chance to actually show
+    if (Math.random() > 0.05) return;
+
+    setLastTrigger(now);
+    const meme = memes[Math.floor(Math.random() * memes.length)];
+    const id = now + Math.random();
+    
+    // Random position on screen (safe area)
+    const x = Math.min(Math.max(50, Math.random() * (window.innerWidth - 250)), window.innerWidth - 250);
+    const y = Math.min(Math.max(100, Math.random() * (window.innerHeight - 200)), window.innerHeight - 200);
 
     setPopups(prev => [...prev, { ...meme, id, x, y }]);
 
@@ -62,37 +61,47 @@ export const MemePopupProvider = ({ children }: { children: React.ReactNode }) =
     setTimeout(() => {
       setPopups(prev => prev.filter(p => p.id !== id));
     }, 2000);
-  }, []);
+  }, [lastTrigger]);
 
-  // Random meme every 30-60 seconds
+  // Very rare random meme (every 2-5 minutes)
   useEffect(() => {
-    const randomInterval = () => Math.random() * 30000 + 30000;
+    const randomInterval = () => Math.random() * 180000 + 120000; // 2-5 min
     let timeout: NodeJS.Timeout;
 
     const scheduleNext = () => {
       timeout = setTimeout(() => {
-        triggerMeme();
+        // Force show one (bypass rate limit for scheduled ones)
+        const meme = memes[Math.floor(Math.random() * memes.length)];
+        const id = Date.now() + Math.random();
+        const x = Math.min(Math.max(50, Math.random() * (window.innerWidth - 250)), window.innerWidth - 250);
+        const y = Math.min(Math.max(100, Math.random() * (window.innerHeight - 200)), window.innerHeight - 200);
+
+        setPopups(prev => [...prev, { ...meme, id, x, y }]);
+        setTimeout(() => {
+          setPopups(prev => prev.filter(p => p.id !== id));
+        }, 2000);
+        
         scheduleNext();
       }, randomInterval());
     };
 
     scheduleNext();
     return () => clearTimeout(timeout);
-  }, [triggerMeme]);
+  }, []);
 
   return (
     <MemeContext.Provider value={{ triggerMeme }}>
       {children}
-      {/* Meme Popups */}
-      {popups.map((popup) => (
+      {/* Meme Popups - max 1 at a time */}
+      {popups.slice(0, 1).map((popup) => (
         <div
           key={popup.id}
           className="fixed z-[100] pointer-events-none animate-meme-popup"
           style={{ left: popup.x, top: popup.y }}
         >
           <div className="bg-black/90 text-white px-4 py-3 rounded-2xl border-2 border-primary shadow-brutal flex items-center gap-3">
-            <span className="text-4xl animate-bounce">{popup.emoji}</span>
-            <span className="font-bold text-lg">{popup.text}</span>
+            <span className="text-3xl animate-bounce">{popup.emoji}</span>
+            <span className="font-bold">{popup.text}</span>
           </div>
         </div>
       ))}

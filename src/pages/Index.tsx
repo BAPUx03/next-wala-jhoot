@@ -21,7 +21,6 @@ import { CertificateGenerator } from '@/components/CertificateGenerator';
 import { TruthMeter } from '@/components/TruthMeter';
 import { TruthDare } from '@/components/TruthDare';
 import { Footer } from '@/components/Footer';
-import { UserInfoBanner } from '@/components/UserInfoBanner';
 import { MemePopupProvider } from '@/components/MemePopup';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -42,7 +41,6 @@ const Index = () => {
 
         {currentFeature === 'home' && (
           <div className="animate-fade-in">
-            <UserInfoBanner />
             <HeroSection />
             <FeatureGrid onFeatureSelect={(feature) => {
               if (feature === 'chatbot') setChatbotOpen(true);
