@@ -51,7 +51,7 @@ This project is configured for easy deployment on Netlify, Vercel, or any static
 
 **Pruthvirajsinh Makwana**
 - Instagram: [@pruthvirajsinh__makwana](https://instagram.com/pruthvirajsinh__makwana)
-- Portfolio: [nextwala.in](https://nextwala.in)
+- Portfolio: [pruthvirajsinh.in](https://pruthvirajsinh.in)
 
 ---
 
