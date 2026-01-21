@@ -10,6 +10,9 @@ A fun, interactive birthday website with games, roasts, and entertainment featur
 - 🎂 **Birthday Wishes** - Personalized birthday messages
 - 🎪 **Interactive Games** - Multiple fun activities
 - 📱 **Fully Responsive** - Works on all devices
+- 
+🔥**LIVE LINK**🔥
+https://nextwalajhoot.netlify.app/
 
 ## Tech Stack
 
