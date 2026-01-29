@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ArrowLeft, Sparkles } from 'lucide-react';
 import { useSoundEffects } from '@/hooks/useSoundEffects';
+import { ShareButtons } from './ShareButtons';
 
 const predictions = [
   "Kal bhi wahi routine chalega 😌",
@@ -57,85 +58,92 @@ export const FuturePredictor = ({ onBack }: FuturePredictorProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-4">
-      <Button variant="ghost" onClick={onBack} className="mb-4 flex items-center gap-2">
-        <ArrowLeft size={20} /> Back
+    <div className="min-h-screen bg-background p-3 sm:p-4">
+      <Button variant="ghost" onClick={onBack} className="mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
+        <ArrowLeft size={18} /> Back
       </Button>
 
       <div className="max-w-md mx-auto">
         {!showResult && !isLoading ? (
-          <div className="bg-card border-4 border-black rounded-3xl p-8 shadow-brutal animate-fade-in">
-            <div className="text-center mb-6">
-              <span className="text-6xl">🔮</span>
-              <h2 className="text-3xl font-bold text-foreground mt-4">
+          <div className="bg-card border-2 sm:border-4 border-black rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-brutal animate-fade-in">
+            <div className="text-center mb-4 sm:mb-6">
+              <span className="text-4xl sm:text-6xl">🔮</span>
+              <h2 className="text-xl sm:text-3xl font-bold text-foreground mt-3 sm:mt-4">
                 Future Predictor
               </h2>
-              <p className="text-muted-foreground mt-2">
+              <p className="text-muted-foreground mt-1 sm:mt-2 text-sm sm:text-base">
                 (100% accurate, 0% useful 😏)
               </p>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               <div>
-                <label className="block text-sm font-bold mb-2">Tera Naam</label>
+                <label className="block text-sm font-bold mb-1.5 sm:mb-2">Tera Naam</label>
                 <Input
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Naam likh..."
-                  className="border-4 border-black text-lg py-5"
+                  className="border-2 sm:border-4 border-black text-base sm:text-lg py-4 sm:py-5"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-bold mb-2">Umar (optional)</label>
+                <label className="block text-sm font-bold mb-1.5 sm:mb-2">Umar (optional)</label>
                 <Input
                   value={age}
                   onChange={(e) => setAge(e.target.value)}
                   placeholder="Age..."
                   type="number"
-                  className="border-4 border-black text-lg py-5"
+                  className="border-2 sm:border-4 border-black text-base sm:text-lg py-4 sm:py-5"
                 />
               </div>
 
               <Button
                 onClick={handlePredict}
                 disabled={!name.trim()}
-                className="w-full bg-gradient-to-r from-primary to-accent text-primary-foreground font-bold py-6 text-xl border-4 border-black shadow-brutal"
+                className="w-full bg-gradient-to-r from-primary to-accent text-primary-foreground font-bold py-4 sm:py-6 text-base sm:text-xl border-2 sm:border-4 border-black shadow-brutal"
               >
-                <Sparkles className="mr-2" />
+                <Sparkles className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />
                 Future Dekho ✨
               </Button>
             </div>
           </div>
         ) : isLoading ? (
-          <div className="bg-card border-4 border-black rounded-3xl p-8 shadow-brutal animate-fade-in text-center">
-            <div className="text-7xl animate-bounce mb-4">🔮</div>
-            <h2 className="text-2xl font-bold text-foreground mb-4">
+          <div className="bg-card border-2 sm:border-4 border-black rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-brutal animate-fade-in text-center">
+            <div className="text-5xl sm:text-7xl animate-bounce mb-3 sm:mb-4">🔮</div>
+            <h2 className="text-lg sm:text-2xl font-bold text-foreground mb-3 sm:mb-4">
               Cosmic forces connect ho rahe hain...
             </h2>
-            <div className="space-y-2 text-muted-foreground">
+            <div className="space-y-1.5 sm:space-y-2 text-muted-foreground text-sm sm:text-base">
               <p className="animate-pulse">⭐ Stars align ho rahe hain...</p>
               <p className="animate-pulse" style={{ animationDelay: '0.2s' }}>🌙 Moon se permission le rahe hain...</p>
               <p className="animate-pulse" style={{ animationDelay: '0.4s' }}>🌌 Universe se data fetch ho raha hai...</p>
             </div>
           </div>
         ) : (
-          <div className="bg-card border-4 border-black rounded-3xl p-8 shadow-brutal animate-fade-in text-center">
-            <div className="text-6xl mb-4">🔮</div>
-            <h2 className="text-xl font-bold text-muted-foreground mb-2">
+          <div className="bg-card border-2 sm:border-4 border-black rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-brutal animate-fade-in text-center">
+            <div className="text-4xl sm:text-6xl mb-3 sm:mb-4">🔮</div>
+            <h2 className="text-base sm:text-xl font-bold text-muted-foreground mb-1.5 sm:mb-2">
               {name} ka Future Update:
             </h2>
-            <div className="bg-gradient-to-r from-primary/20 to-accent/20 rounded-2xl p-6 mb-6 border-2 border-black">
-              <p className="text-2xl font-bold text-foreground">
+            <div className="bg-gradient-to-r from-primary/20 to-accent/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 border-2 border-black">
+              <p className="text-lg sm:text-2xl font-bold text-foreground">
                 "{prediction}"
               </p>
             </div>
-            <p className="text-sm text-muted-foreground mb-6">
+            <p className="text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6">
               *Yeh prediction 100% bakwaas hai 🤡
             </p>
+            
+            <ShareButtons 
+              text={`${name} ka Future Update:\n"${prediction}"`}
+              title="Future Prediction"
+              className="mb-4"
+            />
+            
             <Button
               onClick={reset}
-              className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold py-4 border-4 border-black shadow-brutal"
+              className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold py-3 sm:py-4 border-2 sm:border-4 border-black shadow-brutal text-sm sm:text-base"
             >
               Naya Future Dekho 🔄
             </Button>

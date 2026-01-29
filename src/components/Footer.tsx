@@ -1,23 +1,38 @@
 import { Instagram, Globe, Heart } from 'lucide-react';
+import { ShareButtons } from './ShareButtons';
 
 export const Footer = () => {
   return (
-    <footer className="bg-black text-white py-10 sm:py-12 px-4 mt-12 sm:mt-16 border-t-4 border-primary">
+    <footer className="bg-black text-white py-8 sm:py-12 px-3 sm:px-4 mt-10 sm:mt-16 border-t-4 border-primary">
       <div className="max-w-4xl mx-auto text-center">
+        {/* Share Section */}
+        <div className="mb-6 sm:mb-8">
+          <p className="text-base sm:text-lg mb-3 sm:mb-4 text-gray-300">
+            Is bakchodi ko doston ke saath share kar! 📤
+          </p>
+          <ShareButtons 
+            text="Ye website dekho yaar! 🤡 Bahut maza aaya - games, roasts, aur bakchodi sab hai!"
+            title="Birthday Roast Website"
+          />
+        </div>
+
+        {/* Divider */}
+        <div className="border-t border-gray-700 my-6 sm:my-8" />
+
         {/* Credit Section */}
-        <div className="mb-8">
-          <p className="text-lg sm:text-xl mb-2">Ye mahaan website banayi hai 👑</p>
-          <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-primary mb-6">
+        <div className="mb-6 sm:mb-8">
+          <p className="text-base sm:text-xl mb-1.5 sm:mb-2">Ye mahaan website banayi hai 👑</p>
+          <h3 className="text-xl sm:text-3xl md:text-4xl font-black text-primary mb-4 sm:mb-6">
             Pruthvirajsinh Makwana ne 😎
           </h3>
           
           {/* Social Links */}
-          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-8">
+          <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-4 mb-6 sm:mb-8">
             <a
               href="https://www.instagram.com/pruthvirajsinh__makwana/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-bold hover:scale-105 transition-transform border-2 border-white text-sm sm:text-base"
+              className="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-full font-bold hover:scale-105 transition-transform border-2 border-white text-sm sm:text-base"
             >
               <Instagram size={18} />
               Instagram
@@ -26,7 +41,7 @@ export const Footer = () => {
               href="https://pruthvirajsinh.in"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-primary text-black px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-bold hover:scale-105 transition-transform border-2 border-white text-sm sm:text-base"
+              className="flex items-center justify-center gap-2 bg-primary text-black px-4 sm:px-6 py-2.5 sm:py-3 rounded-full font-bold hover:scale-105 transition-transform border-2 border-white text-sm sm:text-base"
             >
               <Globe size={18} />
               Portfolio
@@ -34,22 +49,22 @@ export const Footer = () => {
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-gray-700 pt-6 mb-6">
-          <p className="text-base sm:text-lg text-gray-400 italic px-4">
+        {/* Quote */}
+        <div className="border-t border-gray-700 pt-4 sm:pt-6 mb-4 sm:mb-6">
+          <p className="text-sm sm:text-lg text-gray-400 italic px-2 sm:px-4">
             "Aisi website sirf legends hi bana sakte hain 🤡"
           </p>
         </div>
 
         {/* Bottom */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs sm:text-sm text-gray-500">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-gray-500">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <span>Made with</span>
-            <Heart size={14} className="text-red-500 animate-pulse" fill="currentColor" />
+            <Heart size={12} className="text-red-500 animate-pulse sm:w-[14px] sm:h-[14px]" fill="currentColor" />
             <span>and bakchodi</span>
           </div>
           <span className="hidden sm:inline text-gray-600">•</span>
-          <span className="text-gray-600">© 2024 NextWala • Sab moh maya hai 🙏</span>
+          <span className="text-gray-600">© 2024 Birthday Roast • Sab moh maya hai 🙏</span>
         </div>
       </div>
     </footer>

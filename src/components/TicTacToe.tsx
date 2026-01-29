@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Volume2, VolumeX } from 'lucide-react';
 import { useSoundEffects } from '@/hooks/useSoundEffects';
+import { ShareButtons } from './ShareButtons';
 import {
   Dialog,
   DialogContent,
@@ -72,9 +73,9 @@ export const TicTacToe = ({ onBack }: TicTacToeProps) => {
 
   const checkWinner = (squares: CellValue[]): CellValue | 'draw' | null => {
     const lines = [
-      [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
-      [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
-      [0, 4, 8], [2, 4, 6], // diagonals
+      [0, 1, 2], [3, 4, 5], [6, 7, 8],
+      [0, 3, 6], [1, 4, 7], [2, 5, 8],
+      [0, 4, 8], [2, 4, 6],
     ];
 
     for (const [a, b, c] of lines) {
@@ -111,14 +112,12 @@ export const TicTacToe = ({ onBack }: TicTacToeProps) => {
   const getBotMove = (squares: CellValue[]): number => {
     const emptyIndices = squares.map((cell, i) => cell === null ? i : -1).filter(i => i !== -1);
     
-    // Try to block player if they're about to win
     const lines = [
       [0, 1, 2], [3, 4, 5], [6, 7, 8],
       [0, 3, 6], [1, 4, 7], [2, 5, 8],
       [0, 4, 8], [2, 4, 6],
     ];
 
-    // Check if bot can win
     for (const [a, b, c] of lines) {
       const cells = [squares[a], squares[b], squares[c]];
       const oCount = cells.filter(c => c === '⭕').length;
@@ -129,7 +128,6 @@ export const TicTacToe = ({ onBack }: TicTacToeProps) => {
       }
     }
 
-    // Block player from winning
     for (const [a, b, c] of lines) {
       const cells = [squares[a], squares[b], squares[c]];
       const xCount = cells.filter(c => c === '❌').length;
@@ -140,16 +138,13 @@ export const TicTacToe = ({ onBack }: TicTacToeProps) => {
       }
     }
 
-    // Take center if available
     if (squares[4] === null) return 4;
 
-    // Take a corner
     const corners = [0, 2, 6, 8].filter(i => squares[i] === null);
     if (corners.length > 0) {
       return corners[Math.floor(Math.random() * corners.length)];
     }
 
-    // Take any available
     return emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
   };
 
@@ -163,7 +158,6 @@ export const TicTacToe = ({ onBack }: TicTacToeProps) => {
     setMoveCount(prev => prev + 1);
     playGameSound('pop');
 
-    // Check if player is about to win - shake the board!
     if (isPlayerAboutToWin(newBoard)) {
       setIsShaking(true);
       setTimeout(() => setIsShaking(false), 500);
@@ -175,7 +169,6 @@ export const TicTacToe = ({ onBack }: TicTacToeProps) => {
       return;
     }
 
-    // Bot's turn
     setTimeout(() => {
       makeBotMove(newBoard);
     }, 800);
@@ -190,7 +183,6 @@ export const TicTacToe = ({ onBack }: TicTacToeProps) => {
     setBoard(newBoard);
     playGameSound('boing');
 
-    // Show taunt occasionally
     if (moveCount > 0 && moveCount % 2 === 0 && Math.random() > 0.5) {
       const randomTaunt = botTaunts[Math.floor(Math.random() * botTaunts.length)];
       setCurrentTaunt(randomTaunt);
@@ -208,21 +200,18 @@ export const TicTacToe = ({ onBack }: TicTacToeProps) => {
   const handleGameEnd = (winner: CellValue | 'draw', finalBoard: CellValue[]) => {
     setGameState('ended');
     setGamesPlayed(prev => prev + 1);
-    playGameSound('honk'); // Record scratch
+    playGameSound('honk');
 
     setTimeout(() => {
       if (winner === '❌') {
-        // Player "won" but bot claims victory anyway 🤡
         const msg = botWinMessages[Math.floor(Math.random() * botWinMessages.length)];
         setPopupContent(msg);
       } else if (winner === '⭕') {
-        // Bot actually won
         const msg = playerLoseMessages[Math.floor(Math.random() * playerLoseMessages.length)];
         setPopupContent(msg);
         setShowEmojiRain(true);
         setTimeout(() => setShowEmojiRain(false), 3000);
       } else {
-        // Draw - but bot still wins
         const msg = drawMessages[Math.floor(Math.random() * drawMessages.length)];
         setPopupContent(msg);
       }
@@ -249,14 +238,14 @@ export const TicTacToe = ({ onBack }: TicTacToeProps) => {
   }, [gamesPlayed, showHint]);
 
   return (
-    <div className="min-h-screen p-4 animate-fade-in relative overflow-hidden">
+    <div className="min-h-screen p-3 sm:p-4 animate-fade-in relative overflow-hidden">
       {/* Emoji Rain */}
       {showEmojiRain && (
         <div className="fixed inset-0 pointer-events-none z-40">
           {[...Array(30)].map((_, i) => (
             <div
               key={i}
-              className="absolute animate-bounce text-2xl sm:text-4xl"
+              className="absolute text-xl sm:text-4xl"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `-50px`,
@@ -270,34 +259,33 @@ export const TicTacToe = ({ onBack }: TicTacToeProps) => {
         </div>
       )}
 
-      <Button variant="ghost" onClick={onBack} className="mb-4 flex items-center gap-2">
-        <ArrowLeft size={20} /> Back
+      <Button variant="ghost" onClick={onBack} className="mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
+        <ArrowLeft size={18} /> Back
       </Button>
 
       <div className="max-w-md mx-auto">
-        <div className="text-center mb-6">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
+        <div className="text-center mb-4 sm:mb-6">
+          <h2 className="text-xl sm:text-3xl font-bold text-foreground mb-1 sm:mb-2">
             Tic-Tac-Toe 🎮
           </h2>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-muted-foreground text-xs sm:text-sm">
             Player vs Bot (Fair game, trust me 😏)
           </p>
           
-          {/* Mute Button */}
           <Button
             variant="ghost"
             size="sm"
             onClick={() => setIsMuted(!isMuted)}
-            className="mt-2"
+            className="mt-1 sm:mt-2"
           >
-            {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+            {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
           </Button>
         </div>
 
         {/* Hint after 3 games */}
         {showHint && (
-          <div className="bg-yellow-100 dark:bg-yellow-900/30 border-2 border-yellow-400 rounded-xl p-3 mb-4 text-center animate-fade-in">
-            <p className="text-sm font-medium">
+          <div className="bg-yellow-100 dark:bg-yellow-900/30 border-2 border-yellow-400 rounded-lg sm:rounded-xl p-2 sm:p-3 mb-3 sm:mb-4 text-center animate-fade-in">
+            <p className="text-xs sm:text-sm font-medium">
               💡 Hint: Is game mein jeetna allowed nahi hai 😌
             </p>
           </div>
@@ -305,26 +293,26 @@ export const TicTacToe = ({ onBack }: TicTacToeProps) => {
 
         {/* Bot Taunt */}
         {currentTaunt && (
-          <div className="bg-card border-2 border-black rounded-xl p-3 mb-4 text-center animate-scale-in shadow-brutal">
-            <p className="text-lg font-bold">🤖 {currentTaunt}</p>
+          <div className="bg-card border-2 border-black rounded-lg sm:rounded-xl p-2 sm:p-3 mb-3 sm:mb-4 text-center animate-scale-in shadow-brutal">
+            <p className="text-sm sm:text-lg font-bold">🤖 {currentTaunt}</p>
           </div>
         )}
 
         {/* Game Board */}
         <div 
-          className={`bg-card rounded-2xl p-4 sm:p-6 border-4 border-black shadow-brutal ${isShaking ? 'animate-shake' : ''}`}
+          className={`bg-card rounded-xl sm:rounded-2xl p-3 sm:p-6 border-2 sm:border-4 border-black shadow-brutal ${isShaking ? 'animate-shake' : ''}`}
         >
-          <div className="grid grid-cols-3 gap-2 sm:gap-3 max-w-[300px] mx-auto">
+          <div className="grid grid-cols-3 gap-1.5 sm:gap-3 max-w-[280px] sm:max-w-[300px] mx-auto">
             {board.map((cell, index) => (
               <button
                 key={index}
                 onClick={() => handleCellClick(index)}
                 disabled={!isPlayerTurn || gameState === 'ended' || cell !== null}
                 className={`
-                  aspect-square rounded-xl border-3 border-black text-4xl sm:text-5xl font-bold
+                  aspect-square rounded-lg sm:rounded-xl border-2 sm:border-3 border-black text-3xl sm:text-5xl font-bold
                   transition-all duration-200 flex items-center justify-center
                   ${cell === null && isPlayerTurn && gameState === 'playing'
-                    ? 'bg-background hover:bg-primary/10 hover:scale-105 cursor-pointer'
+                    ? 'bg-background hover:bg-primary/10 active:scale-95 cursor-pointer'
                     : 'bg-muted cursor-not-allowed'
                   }
                   ${cell === '❌' ? 'text-blue-500' : ''}
@@ -337,9 +325,9 @@ export const TicTacToe = ({ onBack }: TicTacToeProps) => {
           </div>
 
           {/* Turn Indicator */}
-          <div className="text-center mt-4">
+          <div className="text-center mt-3 sm:mt-4">
             {gameState === 'playing' && (
-              <p className="text-lg font-medium">
+              <p className="text-sm sm:text-lg font-medium">
                 {isPlayerTurn ? 'Tera turn ❌' : 'Bot soch raha hai... 🤖'}
               </p>
             )}
@@ -347,47 +335,53 @@ export const TicTacToe = ({ onBack }: TicTacToeProps) => {
         </div>
 
         {/* Legend */}
-        <div className="flex justify-center gap-6 mt-4 text-sm">
-          <div className="flex items-center gap-2">
-            <span className="text-xl">❌</span>
+        <div className="flex justify-center gap-4 sm:gap-6 mt-3 sm:mt-4 text-xs sm:text-sm">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <span className="text-lg sm:text-xl">❌</span>
             <span className="text-muted-foreground">Tu</span>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-xl">⭕</span>
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <span className="text-lg sm:text-xl">⭕</span>
             <span className="text-muted-foreground">Bot (Legend)</span>
           </div>
         </div>
 
-        {/* Share Line */}
-        <div className="text-center mt-6 text-sm text-muted-foreground">
-          <p>Is game ko doston ke saath try kar 😈</p>
-          <p className="font-medium">Sab haarenge.</p>
+        {/* Share Section */}
+        <div className="text-center mt-4 sm:mt-6">
+          <p className="text-xs sm:text-sm text-muted-foreground mb-2 sm:mb-3">
+            Is game ko doston ke saath share kar 😈
+          </p>
+          <ShareButtons 
+            text="Tic-Tac-Toe khela jismein bot kabhi nahi haarta! 🤡 Try kar aur dekh!"
+            title="Rigged Tic-Tac-Toe"
+            compact
+          />
         </div>
       </div>
 
       {/* Win/Lose Popup */}
       <Dialog open={showPopup} onOpenChange={setShowPopup}>
-        <DialogContent className="border-4 border-black shadow-brutal max-w-sm animate-scale-in">
+        <DialogContent className="border-2 sm:border-4 border-black shadow-brutal max-w-[90%] sm:max-w-sm animate-scale-in">
           <DialogHeader>
-            <DialogTitle className="text-2xl text-center">
+            <DialogTitle className="text-xl sm:text-2xl text-center">
               {popupContent.title}
             </DialogTitle>
-            <DialogDescription className="text-center text-lg whitespace-pre-line pt-2">
+            <DialogDescription className="text-center text-base sm:text-lg whitespace-pre-line pt-2">
               {popupContent.message}
             </DialogDescription>
           </DialogHeader>
           
-          <div className="flex flex-col gap-3 mt-4">
+          <div className="flex flex-col gap-2 sm:gap-3 mt-3 sm:mt-4">
             <Button 
               onClick={resetGame}
-              className="w-full border-2 border-black shadow-brutal hover:shadow-none transition-all"
+              className="w-full border-2 border-black shadow-brutal hover:shadow-none transition-all text-sm sm:text-base py-2 sm:py-3"
             >
               Try Again 🔄
             </Button>
             <Button 
               variant="outline"
               onClick={onBack}
-              className="w-full border-2 border-black"
+              className="w-full border-2 border-black text-sm sm:text-base py-2 sm:py-3"
             >
               Main nahi khel raha 😤
             </Button>

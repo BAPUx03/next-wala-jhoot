@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Share2 } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { useSoundEffects } from '@/hooks/useSoundEffects';
+import { ShareButtons } from './ShareButtons';
 
 const questions = [
   {
@@ -58,7 +59,6 @@ export const PersonalityTest = ({ onBack }: PersonalityTestProps) => {
     } else {
       playSound('drumroll');
       setTimeout(() => {
-        // "Calculate" result (completely random 😈)
         setResult(results[Math.floor(Math.random() * results.length)]);
         setShowResult(true);
         playSound('tada');
@@ -73,47 +73,37 @@ export const PersonalityTest = ({ onBack }: PersonalityTestProps) => {
     playSound('boing');
   };
 
-  const share = () => {
-    playSound('cheer');
-    const text = `Mera personality type: ${result.emoji} ${result.title}! Check yours at NextWalaJhoot 😂`;
-    if (navigator.share) {
-      navigator.share({ text });
-    } else {
-      navigator.clipboard.writeText(text);
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-background p-4">
-      <Button variant="ghost" onClick={onBack} className="mb-4 flex items-center gap-2">
-        <ArrowLeft size={20} /> Back
+    <div className="min-h-screen bg-background p-3 sm:p-4">
+      <Button variant="ghost" onClick={onBack} className="mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
+        <ArrowLeft size={18} /> Back
       </Button>
 
       <div className="max-w-md mx-auto">
         {!showResult ? (
-          <div className="bg-card border-4 border-black rounded-3xl p-8 shadow-brutal animate-fade-in">
-            <div className="text-center mb-6">
-              <div className="text-sm text-muted-foreground mb-2">
+          <div className="bg-card border-2 sm:border-4 border-black rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-brutal animate-fade-in">
+            <div className="text-center mb-4 sm:mb-6">
+              <div className="text-xs sm:text-sm text-muted-foreground mb-1.5 sm:mb-2">
                 Question {currentQ + 1}/{questions.length}
               </div>
-              <div className="w-full bg-muted rounded-full h-2 mb-4">
+              <div className="w-full bg-muted rounded-full h-1.5 sm:h-2 mb-3 sm:mb-4">
                 <div
-                  className="bg-primary h-2 rounded-full transition-all"
+                  className="bg-primary h-1.5 sm:h-2 rounded-full transition-all"
                   style={{ width: `${((currentQ + 1) / questions.length) * 100}%` }}
                 />
               </div>
-              <span className="text-5xl">🧪</span>
-              <h2 className="text-2xl font-bold text-foreground mt-4">
+              <span className="text-3xl sm:text-5xl">🧪</span>
+              <h2 className="text-lg sm:text-2xl font-bold text-foreground mt-3 sm:mt-4">
                 {questions[currentQ].question}
               </h2>
             </div>
 
-            <div className="grid gap-3">
+            <div className="grid gap-2 sm:gap-3">
               {questions[currentQ].options.map((option, index) => (
                 <button
                   key={index}
                   onClick={() => handleAnswer(index)}
-                  className="p-4 rounded-xl border-4 border-black font-bold text-lg transition-all bg-card hover:bg-primary hover:text-primary-foreground hover:shadow-brutal hover:-translate-y-1"
+                  className="p-3 sm:p-4 rounded-lg sm:rounded-xl border-2 sm:border-4 border-black font-bold text-sm sm:text-lg transition-all bg-card hover:bg-primary hover:text-primary-foreground active:scale-98"
                 >
                   {option}
                 </button>
@@ -121,38 +111,36 @@ export const PersonalityTest = ({ onBack }: PersonalityTestProps) => {
             </div>
           </div>
         ) : (
-          <div className="bg-card border-4 border-black rounded-3xl p-8 shadow-brutal animate-fade-in text-center">
-            <div className="text-8xl mb-4 animate-bounce">{result.emoji}</div>
-            <h2 className="text-2xl font-bold text-foreground mb-2">
+          <div className="bg-card border-2 sm:border-4 border-black rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-brutal animate-fade-in text-center">
+            <div className="text-5xl sm:text-8xl mb-3 sm:mb-4 animate-bounce">{result.emoji}</div>
+            <h2 className="text-lg sm:text-2xl font-bold text-foreground mb-1.5 sm:mb-2">
               Your Personality:
             </h2>
-            <h3 className="text-3xl font-bold text-primary mb-4">
+            <h3 className="text-xl sm:text-3xl font-bold text-primary mb-3 sm:mb-4">
               {result.title}
             </h3>
-            <div className="bg-primary/20 rounded-2xl p-6 mb-6 border-2 border-black">
-              <p className="text-lg text-foreground">
+            <div className="bg-primary/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 border-2 border-black">
+              <p className="text-sm sm:text-lg text-foreground">
                 {result.desc}
               </p>
             </div>
-            <p className="text-sm text-muted-foreground mb-6">
+            <p className="text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6">
               *Answers were ignored, result was random 🎲
             </p>
-            <div className="grid grid-cols-2 gap-3">
-              <Button
-                onClick={restart}
-                variant="outline"
-                className="border-4 border-black font-bold py-4"
-              >
-                Retry 🔄
-              </Button>
-              <Button
-                onClick={share}
-                className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold py-4 border-4 border-black shadow-brutal"
-              >
-                <Share2 className="mr-2" size={18} />
-                Share
-              </Button>
-            </div>
+            
+            <ShareButtons 
+              text={`Mera personality type: ${result.emoji} ${result.title}!\n${result.desc}`}
+              title="Personality Test Result"
+              className="mb-4"
+            />
+            
+            <Button
+              onClick={restart}
+              variant="outline"
+              className="w-full border-2 sm:border-4 border-black font-bold py-3 sm:py-4 text-sm sm:text-base"
+            >
+              Retry 🔄
+            </Button>
           </div>
         )}
       </div>

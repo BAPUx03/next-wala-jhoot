@@ -3,13 +3,12 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft, MessageCircle, Flame, RefreshCw, Sparkles, Loader2 } from 'lucide-react';
 import { useSoundEffects } from '@/hooks/useSoundEffects';
 import { supabase } from '@/integrations/supabase/client';
-import { toast } from 'sonner';
+import { ShareButtons } from './ShareButtons';
 
 interface TruthDareProps {
   onBack: () => void;
 }
 
-// Fallback truths/dares if AI fails
 const fallbackTruths = [
   "Last baar kab productive feel kiya tha? 🤔",
   "Phone charge 5% ho toh kya pehle karta hai? 📱",
@@ -63,7 +62,6 @@ export const TruthDare = ({ onBack }: TruthDareProps) => {
       throw new Error('No content');
     } catch (error) {
       console.error('AI fetch error:', error);
-      // Fallback to static content
       return type === 'truth' 
         ? getRandomItem(fallbackTruths) 
         : getRandomItem(fallbackDares);
@@ -133,38 +131,46 @@ export const TruthDare = ({ onBack }: TruthDareProps) => {
   };
 
   return (
-    <div className="min-h-screen p-4 animate-fade-in bg-gradient-to-b from-background to-purple-900/20">
-      <Button variant="ghost" onClick={onBack} className="mb-4 flex items-center gap-2">
-        <ArrowLeft size={20} /> Back
+    <div className="min-h-screen p-3 sm:p-4 animate-fade-in bg-gradient-to-b from-background to-purple-900/20">
+      <Button variant="ghost" onClick={onBack} className="mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
+        <ArrowLeft size={18} /> Back
       </Button>
 
       <div className="max-w-2xl mx-auto">
         {/* Entry Screen */}
         {mode === 'entry' && (
           <div className="text-center animate-scale-in">
-            <h2 className="text-3xl sm:text-4xl font-black mb-4">🎭 Truth & Dare</h2>
-            <p className="text-xl sm:text-2xl mb-8 text-muted-foreground">
+            <h2 className="text-2xl sm:text-4xl font-black mb-3 sm:mb-4">🎭 Truth & Dare</h2>
+            <p className="text-lg sm:text-2xl mb-6 sm:mb-8 text-muted-foreground">
               Sach bolega ya himmat dikhayega? 😈
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <Button
                 onClick={startTruth}
-                className="text-xl sm:text-2xl py-6 sm:py-8 px-8 sm:px-12 bg-blue-500 hover:bg-blue-600 border-4 border-black shadow-brutal hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
+                className="text-lg sm:text-2xl py-5 sm:py-8 px-6 sm:px-12 bg-blue-500 hover:bg-blue-600 border-2 sm:border-4 border-black shadow-brutal hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
               >
-                <MessageCircle className="mr-2" size={24} />
+                <MessageCircle className="mr-2" size={20} />
                 Truth 😏
               </Button>
               <Button
                 onClick={startDare}
-                className="text-xl sm:text-2xl py-6 sm:py-8 px-8 sm:px-12 bg-orange-500 hover:bg-orange-600 border-4 border-black shadow-brutal hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
+                className="text-lg sm:text-2xl py-5 sm:py-8 px-6 sm:px-12 bg-orange-500 hover:bg-orange-600 border-2 sm:border-4 border-black shadow-brutal hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
               >
-                <Flame className="mr-2" size={24} />
+                <Flame className="mr-2" size={20} />
                 Dare 🔥
               </Button>
             </div>
 
-            <p className="mt-8 text-sm text-muted-foreground italic">
+            <div className="mt-6 sm:mt-8">
+              <ShareButtons 
+                text="Truth ya Dare? 🎭 Is addictive game mein maza aa gaya!"
+                title="Truth & Dare Game"
+                compact
+              />
+            </div>
+
+            <p className="mt-4 text-xs sm:text-sm text-muted-foreground italic">
               ⚠️ AI-powered! Har baar naya question/dare milega 🤖✨
             </p>
           </div>
@@ -172,21 +178,21 @@ export const TruthDare = ({ onBack }: TruthDareProps) => {
 
         {/* Truth Mode */}
         {mode === 'truth' && (
-          <div className="bg-card rounded-2xl p-6 sm:p-8 border-4 border-black shadow-brutal animate-fade-in">
-            <div className="flex items-center justify-center gap-2 mb-6">
-              <MessageCircle className="text-blue-500" size={28} />
-              <h3 className="text-xl sm:text-2xl font-bold">Truth Time 😏</h3>
+          <div className="bg-card rounded-xl sm:rounded-2xl p-4 sm:p-8 border-2 sm:border-4 border-black shadow-brutal animate-fade-in">
+            <div className="flex items-center justify-center gap-2 mb-4 sm:mb-6">
+              <MessageCircle className="text-blue-500" size={24} />
+              <h3 className="text-lg sm:text-2xl font-bold">Truth Time 😏</h3>
             </div>
 
             {isLoading ? (
-              <div className="flex flex-col items-center justify-center py-12">
-                <Loader2 className="w-10 h-10 animate-spin text-blue-500 mb-4" />
-                <p className="text-muted-foreground">AI soch raha hai... 🤔</p>
+              <div className="flex flex-col items-center justify-center py-8 sm:py-12">
+                <Loader2 className="w-8 h-8 sm:w-10 sm:h-10 animate-spin text-blue-500 mb-3 sm:mb-4" />
+                <p className="text-muted-foreground text-sm sm:text-base">AI soch raha hai... 🤔</p>
               </div>
             ) : (
               <>
-                <div className="bg-blue-100 dark:bg-blue-900/30 rounded-xl p-4 sm:p-6 mb-6 border-2 border-blue-300">
-                  <p className="text-lg sm:text-xl font-medium text-center">{currentQuestion}</p>
+                <div className="bg-blue-100 dark:bg-blue-900/30 rounded-lg sm:rounded-xl p-3 sm:p-6 mb-4 sm:mb-6 border-2 border-blue-300">
+                  <p className="text-base sm:text-xl font-medium text-center">{currentQuestion}</p>
                 </div>
 
                 {!showReaction ? (
@@ -195,35 +201,35 @@ export const TruthDare = ({ onBack }: TruthDareProps) => {
                       value={answer}
                       onChange={(e) => setAnswer(e.target.value)}
                       placeholder="Sach likh… jhoot bhi chalega 😌"
-                      className="w-full p-4 rounded-xl border-2 border-black bg-background text-foreground mb-4 min-h-[100px] resize-none"
+                      className="w-full p-3 sm:p-4 rounded-lg sm:rounded-xl border-2 border-black bg-background text-foreground mb-3 sm:mb-4 min-h-[80px] sm:min-h-[100px] resize-none text-sm sm:text-base"
                       maxLength={500}
                     />
                     <Button
                       onClick={submitTruth}
                       disabled={!answer.trim()}
-                      className="w-full bg-blue-500 hover:bg-blue-600 text-lg sm:text-xl py-5 sm:py-6 border-4 border-black shadow-brutal"
+                      className="w-full bg-blue-500 hover:bg-blue-600 text-base sm:text-xl py-4 sm:py-6 border-2 sm:border-4 border-black shadow-brutal"
                     >
-                      <Sparkles className="mr-2" /> Submit Truth
+                      <Sparkles className="mr-2" size={18} /> Submit Truth
                     </Button>
                   </>
                 ) : (
                   <div className="animate-scale-in">
-                    <div className="bg-primary/20 rounded-xl p-6 mb-6 border-2 border-primary text-center">
-                      <p className="text-lg sm:text-xl font-bold">{reaction}</p>
+                    <div className="bg-primary/20 rounded-lg sm:rounded-xl p-4 sm:p-6 mb-4 sm:mb-6 border-2 border-primary text-center">
+                      <p className="text-base sm:text-xl font-bold">{reaction}</p>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row gap-3">
+                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                       <Button
                         onClick={nextTruth}
-                        className="flex-1 bg-blue-500 hover:bg-blue-600 border-2 border-black"
+                        className="flex-1 bg-blue-500 hover:bg-blue-600 border-2 border-black text-sm sm:text-base py-2.5 sm:py-3"
                       >
-                        <RefreshCw className="mr-2" size={18} /> Naya Question 🔄
+                        <RefreshCw className="mr-1.5 sm:mr-2" size={16} /> Naya Question 🔄
                       </Button>
                       <Button
                         onClick={startDare}
-                        className="flex-1 bg-orange-500 hover:bg-orange-600 border-2 border-black"
+                        className="flex-1 bg-orange-500 hover:bg-orange-600 border-2 border-black text-sm sm:text-base py-2.5 sm:py-3"
                       >
-                        <Flame className="mr-2" size={18} /> Ab Dare 😈
+                        <Flame className="mr-1.5 sm:mr-2" size={16} /> Ab Dare 😈
                       </Button>
                     </div>
                   </div>
@@ -235,67 +241,67 @@ export const TruthDare = ({ onBack }: TruthDareProps) => {
 
         {/* Dare Mode */}
         {mode === 'dare' && (
-          <div className="bg-card rounded-2xl p-6 sm:p-8 border-4 border-black shadow-brutal animate-fade-in">
-            <div className="flex items-center justify-center gap-2 mb-6">
-              <Flame className="text-orange-500" size={28} />
-              <h3 className="text-xl sm:text-2xl font-bold">Dare Time 🔥</h3>
+          <div className="bg-card rounded-xl sm:rounded-2xl p-4 sm:p-8 border-2 sm:border-4 border-black shadow-brutal animate-fade-in">
+            <div className="flex items-center justify-center gap-2 mb-4 sm:mb-6">
+              <Flame className="text-orange-500" size={24} />
+              <h3 className="text-lg sm:text-2xl font-bold">Dare Time 🔥</h3>
             </div>
 
             {isLoading ? (
-              <div className="flex flex-col items-center justify-center py-12">
-                <Loader2 className="w-10 h-10 animate-spin text-orange-500 mb-4" />
-                <p className="text-muted-foreground">AI dare soch raha hai... 😈</p>
+              <div className="flex flex-col items-center justify-center py-8 sm:py-12">
+                <Loader2 className="w-8 h-8 sm:w-10 sm:h-10 animate-spin text-orange-500 mb-3 sm:mb-4" />
+                <p className="text-muted-foreground text-sm sm:text-base">AI dare soch raha hai... 😈</p>
               </div>
             ) : (
               <>
-                <div className="bg-orange-100 dark:bg-orange-900/30 rounded-xl p-4 sm:p-6 mb-6 border-2 border-orange-300">
-                  <p className="text-lg sm:text-xl font-medium text-center">{currentDare}</p>
+                <div className="bg-orange-100 dark:bg-orange-900/30 rounded-lg sm:rounded-xl p-3 sm:p-6 mb-4 sm:mb-6 border-2 border-orange-300">
+                  <p className="text-base sm:text-xl font-medium text-center">{currentDare}</p>
                 </div>
 
                 {dareCompleted === null ? (
-                  <div className="flex flex-col sm:flex-row gap-3">
+                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                     <Button
                       onClick={() => handleDareResponse(true)}
-                      className="flex-1 text-base sm:text-lg py-5 sm:py-6 bg-green-500 hover:bg-green-600 border-4 border-black shadow-brutal"
+                      className="flex-1 text-sm sm:text-lg py-4 sm:py-6 bg-green-500 hover:bg-green-600 border-2 sm:border-4 border-black shadow-brutal"
                     >
                       Kar diya 😎
                     </Button>
                     <Button
                       onClick={() => handleDareResponse(false)}
-                      className="flex-1 text-base sm:text-lg py-5 sm:py-6 bg-red-500 hover:bg-red-600 border-4 border-black shadow-brutal"
+                      className="flex-1 text-sm sm:text-lg py-4 sm:py-6 bg-red-500 hover:bg-red-600 border-2 sm:border-4 border-black shadow-brutal"
                     >
                       Nahi kiya 🤡
                     </Button>
                   </div>
                 ) : (
                   <div className="animate-scale-in">
-                    <div className={`rounded-xl p-6 mb-6 border-2 text-center ${
+                    <div className={`rounded-lg sm:rounded-xl p-4 sm:p-6 mb-4 sm:mb-6 border-2 text-center ${
                       dareCompleted 
                         ? 'bg-green-100 dark:bg-green-900/30 border-green-300' 
                         : 'bg-red-100 dark:bg-red-900/30 border-red-300'
                     }`}>
-                      <p className="text-xl sm:text-2xl font-bold">
+                      <p className="text-lg sm:text-2xl font-bold">
                         {dareCompleted ? "Respect 🫡 (temporary)" : "Expected tha 😏"}
                       </p>
-                      <p className="text-muted-foreground mt-2 text-sm sm:text-base">
+                      <p className="text-muted-foreground mt-1.5 sm:mt-2 text-xs sm:text-base">
                         {dareCompleted 
                           ? "Himmat hai tujh mein... ya phone hath mein nahi tha 🤔" 
                           : "Koi nahi, next time pakka... (haan haan 🙄)"}
                       </p>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row gap-3">
+                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                       <Button
                         onClick={nextDare}
-                        className="flex-1 bg-orange-500 hover:bg-orange-600 border-2 border-black"
+                        className="flex-1 bg-orange-500 hover:bg-orange-600 border-2 border-black text-sm sm:text-base py-2.5 sm:py-3"
                       >
-                        <RefreshCw className="mr-2" size={18} /> Naya Dare 🔄
+                        <RefreshCw className="mr-1.5 sm:mr-2" size={16} /> Naya Dare 🔄
                       </Button>
                       <Button
                         onClick={startTruth}
-                        className="flex-1 bg-blue-500 hover:bg-blue-600 border-2 border-black"
+                        className="flex-1 bg-blue-500 hover:bg-blue-600 border-2 border-black text-sm sm:text-base py-2.5 sm:py-3"
                       >
-                        <MessageCircle className="mr-2" size={18} /> Ab Truth 😏
+                        <MessageCircle className="mr-1.5 sm:mr-2" size={16} /> Ab Truth 😏
                       </Button>
                     </div>
                   </div>
@@ -307,11 +313,11 @@ export const TruthDare = ({ onBack }: TruthDareProps) => {
 
         {/* Back to Entry */}
         {mode !== 'entry' && (
-          <div className="mt-6 text-center">
+          <div className="mt-4 sm:mt-6 text-center">
             <Button
               variant="outline"
               onClick={() => setMode('entry')}
-              className="border-2 border-black"
+              className="border-2 border-black text-sm sm:text-base"
             >
               🏠 Shuru se khelo
             </Button>
