@@ -79,30 +79,30 @@ export const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative py-8 sm:py-12 md:py-16 px-4 overflow-hidden">
+    <section className="relative py-6 sm:py-12 md:py-16 px-3 sm:px-4 overflow-hidden">
       {/* Background decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-20 -left-20 w-40 h-40 bg-primary/20 rounded-full blur-3xl" />
-        <div className="absolute -bottom-20 -right-20 w-60 h-60 bg-purple-500/10 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/4 w-32 h-32 bg-pink-500/10 rounded-full blur-2xl" />
+        <div className="absolute -top-20 -left-20 w-32 sm:w-40 h-32 sm:h-40 bg-primary/20 rounded-full blur-3xl" />
+        <div className="absolute -bottom-20 -right-20 w-48 sm:w-60 h-48 sm:h-60 bg-purple-500/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/4 w-24 sm:w-32 h-24 sm:h-32 bg-pink-500/10 rounded-full blur-2xl" />
       </div>
 
       {/* Logo */}
-      <div className="flex justify-center mb-6 sm:mb-8 relative">
+      <div className="flex justify-center mb-4 sm:mb-8 relative">
         <div className="relative group">
           <div className="absolute -inset-4 bg-gradient-to-r from-primary/30 via-pink-500/30 to-purple-500/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           <img 
             src={logo} 
-            alt="NextWala" 
-            className="w-32 sm:w-40 md:w-48 lg:w-56 hover:scale-110 transition-all duration-300 cursor-pointer relative z-10 drop-shadow-2xl"
+            alt="Birthday Roast" 
+            className="w-24 sm:w-40 md:w-48 lg:w-56 hover:scale-110 transition-all duration-300 cursor-pointer relative z-10 drop-shadow-2xl"
           />
         </div>
       </div>
 
       {/* Main Headline */}
-      <div className="text-center mb-6 sm:mb-8 px-2">
+      <div className="text-center mb-4 sm:mb-8 px-2">
         <h1 
-          className={`text-xl sm:text-2xl md:text-4xl lg:text-5xl font-black text-foreground transition-all duration-300 leading-tight ${
+          className={`text-lg sm:text-2xl md:text-4xl lg:text-5xl font-black text-foreground transition-all duration-300 leading-tight ${
             isAnimating ? 'opacity-0 translate-y-4 scale-95' : 'opacity-100 translate-y-0 scale-100'
           }`}
         >
@@ -111,39 +111,39 @@ export const HeroSection = () => {
       </div>
 
       {/* Stats & Auto Bakchodi */}
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-4 sm:mb-6">
         {/* Fun Fact Rotator */}
-        <div className="flex items-center gap-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-full px-4 py-2">
-          <Trophy size={16} className="text-purple-400" />
+        <div className="flex items-center gap-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-full px-3 sm:px-4 py-1.5 sm:py-2">
+          <Trophy size={14} className="text-purple-400 sm:w-4 sm:h-4" />
           <span className="text-xs sm:text-sm font-medium text-purple-300">
             {funFacts[factIndex]}
           </span>
         </div>
 
         {/* Auto Bakchodi Label */}
-        <div className="bg-primary/20 border-2 border-primary rounded-full px-4 sm:px-6 py-2 flex items-center gap-2">
+        <div className="bg-primary/20 border-2 border-primary rounded-full px-3 sm:px-6 py-1.5 sm:py-2 flex items-center gap-1.5 sm:gap-2">
           <span className="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full animate-pulse"></span>
           <span className="text-xs sm:text-sm font-bold text-foreground">Auto bakchodi ON</span>
-          <Zap size={14} className="text-primary animate-pulse" />
+          <Zap size={12} className="text-primary animate-pulse sm:w-[14px] sm:h-[14px]" />
         </div>
       </div>
 
       {/* Rotating Joke */}
-      <div className="text-center px-4">
-        <div className="inline-flex items-center gap-2 bg-card/50 backdrop-blur-sm border border-border rounded-2xl px-4 sm:px-6 py-3 max-w-lg mx-auto">
-          <Sparkles size={16} className="text-primary shrink-0" />
-          <p className="text-sm sm:text-base md:text-lg text-muted-foreground italic">
+      <div className="text-center px-2 sm:px-4">
+        <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-card/50 backdrop-blur-sm border border-border rounded-xl sm:rounded-2xl px-3 sm:px-6 py-2 sm:py-3 max-w-lg mx-auto">
+          <Sparkles size={14} className="text-primary shrink-0 sm:w-4 sm:h-4" />
+          <p className="text-xs sm:text-base md:text-lg text-muted-foreground italic">
             "{currentJoke}"
           </p>
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <div className="flex justify-center mt-8 sm:mt-12 animate-bounce">
+      <div className="flex justify-center mt-6 sm:mt-12 animate-bounce">
         <div className="flex flex-col items-center gap-1 text-muted-foreground">
           <span className="text-xs">Scroll karo 👇</span>
-          <div className="w-6 h-10 border-2 border-muted-foreground/50 rounded-full flex justify-center p-1">
-            <div className="w-1.5 h-2.5 bg-primary rounded-full animate-pulse" />
+          <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-muted-foreground/50 rounded-full flex justify-center p-1">
+            <div className="w-1 h-2 sm:w-1.5 sm:h-2.5 bg-primary rounded-full animate-pulse" />
           </div>
         </div>
       </div>

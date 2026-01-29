@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Share2 } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
+import { ShareButtons } from './ShareButtons';
 
 interface Question {
   question: string;
   options: string[];
-  // All answers lead to funny result, no "correct" answer
 }
 
 const questions: Question[] = [
@@ -56,7 +56,6 @@ export const FunnyQuiz = ({ onBack }: FunnyQuizProps) => {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
-      // Calculate "result" (it's random but seems calculated 😏)
       const randomResult = results[Math.floor(Math.random() * results.length)];
       setResult(randomResult);
       setShowResult(true);
@@ -69,57 +68,48 @@ export const FunnyQuiz = ({ onBack }: FunnyQuizProps) => {
     setShowResult(false);
   };
 
-  const shareResult = () => {
-    const text = `Mera result: ${result.title}\n${result.description}\n\nTu bhi try kar 👉 ${window.location.origin}`;
-    if (navigator.share) {
-      navigator.share({ text });
-    } else {
-      navigator.clipboard.writeText(text);
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-background p-4">
+    <div className="min-h-screen bg-background p-3 sm:p-4">
       <Button
         variant="ghost"
         onClick={onBack}
-        className="mb-4 flex items-center gap-2"
+        className="mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base"
       >
-        <ArrowLeft size={20} />
+        <ArrowLeft size={18} />
         Back
       </Button>
 
       <div className="max-w-lg mx-auto">
         {!showResult ? (
-          <div className="bg-card border-4 border-black rounded-2xl p-8 shadow-brutal animate-fade-in">
+          <div className="bg-card border-2 sm:border-4 border-black rounded-xl sm:rounded-2xl p-4 sm:p-8 shadow-brutal animate-fade-in">
             {/* Progress */}
-            <div className="flex gap-2 mb-6">
+            <div className="flex gap-1.5 sm:gap-2 mb-4 sm:mb-6">
               {questions.map((_, i) => (
                 <div
                   key={i}
-                  className={`flex-1 h-2 rounded-full ${
+                  className={`flex-1 h-1.5 sm:h-2 rounded-full transition-colors ${
                     i <= currentQuestion ? 'bg-primary' : 'bg-muted'
                   }`}
                 />
               ))}
             </div>
 
-            <div className="text-center mb-2">
-              <span className="text-sm text-muted-foreground">
+            <div className="text-center mb-1.5 sm:mb-2">
+              <span className="text-xs sm:text-sm text-muted-foreground">
                 Question {currentQuestion + 1}/{questions.length}
               </span>
             </div>
 
-            <h2 className="text-2xl font-bold text-center mb-8 text-foreground">
+            <h2 className="text-lg sm:text-2xl font-bold text-center mb-4 sm:mb-8 text-foreground leading-tight">
               {questions[currentQuestion].question}
             </h2>
 
-            <div className="space-y-4">
+            <div className="space-y-2 sm:space-y-4">
               {questions[currentQuestion].options.map((option, i) => (
                 <button
                   key={i}
                   onClick={() => handleAnswer(i)}
-                  className="w-full p-4 text-left rounded-xl border-2 border-black bg-card hover:bg-primary/20 hover:border-primary transition-all font-medium text-foreground"
+                  className="w-full p-3 sm:p-4 text-left rounded-lg sm:rounded-xl border-2 border-black bg-card hover:bg-primary/20 hover:border-primary transition-all font-medium text-foreground text-sm sm:text-base active:scale-98"
                 >
                   {option}
                 </button>
@@ -128,39 +118,36 @@ export const FunnyQuiz = ({ onBack }: FunnyQuizProps) => {
           </div>
         ) : (
           <div className="text-center animate-fade-in">
-            <div className="bg-card border-4 border-black rounded-2xl p-8 shadow-brutal">
-              <div className="text-8xl mb-4">{result.emoji}</div>
+            <div className="bg-card border-2 sm:border-4 border-black rounded-xl sm:rounded-2xl p-4 sm:p-8 shadow-brutal">
+              <div className="text-5xl sm:text-8xl mb-3 sm:mb-4">{result.emoji}</div>
               
-              <h2 className="text-3xl font-bold mb-4 text-foreground">
+              <h2 className="text-xl sm:text-3xl font-bold mb-2 sm:mb-4 text-foreground">
                 {result.title}
               </h2>
               
-              <p className="text-xl text-muted-foreground mb-8">
+              <p className="text-base sm:text-xl text-muted-foreground mb-4 sm:mb-6">
                 {result.description}
               </p>
 
-              <div className="bg-primary/20 rounded-xl p-4 mb-6">
-                <p className="text-sm text-foreground">
+              <div className="bg-primary/20 rounded-lg sm:rounded-xl p-3 sm:p-4 mb-4 sm:mb-6">
+                <p className="text-xs sm:text-sm text-foreground">
                   Confidence zyada hai, logic kam 🤡
                 </p>
               </div>
 
-              <div className="flex gap-3">
-                <Button
-                  onClick={shareResult}
-                  className="flex-1 bg-gradient-to-r from-pink-500 to-purple-500 text-white border-2 border-black"
-                >
-                  <Share2 className="mr-2" size={16} />
-                  Share 📤
-                </Button>
-                <Button
-                  onClick={resetQuiz}
-                  variant="outline"
-                  className="flex-1 border-2 border-black"
-                >
-                  Again 🔄
-                </Button>
-              </div>
+              <ShareButtons 
+                text={`Mera result: ${result.title}\n${result.description}`}
+                title="Quiz Result"
+                className="mb-4"
+              />
+
+              <Button
+                onClick={resetQuiz}
+                variant="outline"
+                className="w-full border-2 border-black text-sm sm:text-base py-2 sm:py-3"
+              >
+                Again 🔄
+              </Button>
             </div>
           </div>
         )}

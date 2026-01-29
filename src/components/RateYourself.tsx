@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Star } from 'lucide-react';
 import { useSoundEffects } from '@/hooks/useSoundEffects';
+import { ShareButtons } from './ShareButtons';
 
 const highRatingRoasts = [
   "Self-confidence strong hai, facts thode kam 🤡",
@@ -75,36 +76,36 @@ export const RateYourself = ({ onBack }: RateYourselfProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-4">
-      <Button variant="ghost" onClick={onBack} className="mb-4 flex items-center gap-2">
-        <ArrowLeft size={20} /> Back
+    <div className="min-h-screen bg-background p-3 sm:p-4">
+      <Button variant="ghost" onClick={onBack} className="mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
+        <ArrowLeft size={18} /> Back
       </Button>
 
       <div className="max-w-md mx-auto">
         {!showResult ? (
-          <div className="bg-card border-4 border-black rounded-3xl p-8 shadow-brutal animate-fade-in">
-            <div className="text-center mb-8">
-              <span className="text-6xl">🪞</span>
-              <h2 className="text-3xl font-bold text-foreground mt-4">
+          <div className="bg-card border-2 sm:border-4 border-black rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-brutal animate-fade-in">
+            <div className="text-center mb-4 sm:mb-8">
+              <span className="text-4xl sm:text-6xl">🪞</span>
+              <h2 className="text-xl sm:text-3xl font-bold text-foreground mt-3 sm:mt-4">
                 Apne aap ko rate karo ⭐
               </h2>
-              <p className="text-muted-foreground mt-2">
+              <p className="text-muted-foreground mt-1 sm:mt-2 text-sm sm:text-base">
                 (Honest rehna, website judge karegi 😈)
               </p>
             </div>
 
-            <div className="flex justify-center gap-2 mb-8">
+            <div className="flex justify-center gap-1 sm:gap-2 mb-4 sm:mb-8">
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
                   key={star}
                   onClick={() => handleRate(star)}
                   onMouseEnter={() => setHoverRating(star)}
                   onMouseLeave={() => setHoverRating(0)}
-                  className="transition-transform hover:scale-125"
+                  className="transition-transform hover:scale-125 active:scale-95 p-1"
                 >
                   <Star
-                    size={48}
-                    className={`${
+                    size={36}
+                    className={`sm:w-12 sm:h-12 ${
                       star <= (hoverRating || rating)
                         ? 'fill-primary text-primary'
                         : 'text-muted-foreground'
@@ -115,7 +116,7 @@ export const RateYourself = ({ onBack }: RateYourselfProps) => {
             </div>
 
             {rating > 0 && (
-              <p className="text-center text-2xl font-bold mb-6">
+              <p className="text-center text-xl sm:text-2xl font-bold mb-4 sm:mb-6">
                 {rating}/5 ⭐
               </p>
             )}
@@ -123,27 +124,34 @@ export const RateYourself = ({ onBack }: RateYourselfProps) => {
             <Button
               onClick={handleSubmit}
               disabled={rating === 0}
-              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold py-6 text-xl border-4 border-black shadow-brutal"
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold py-4 sm:py-6 text-base sm:text-xl border-2 sm:border-4 border-black shadow-brutal"
             >
               Dekho Kya Bolta Hai 🔮
             </Button>
           </div>
         ) : (
-          <div className="bg-card border-4 border-black rounded-3xl p-8 shadow-brutal animate-fade-in text-center">
-            <div className="text-7xl mb-4 animate-bounce">
+          <div className="bg-card border-2 sm:border-4 border-black rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-brutal animate-fade-in text-center">
+            <div className="text-5xl sm:text-7xl mb-3 sm:mb-4 animate-bounce">
               {rating >= 4 ? '🤡' : rating <= 2 ? '🥺' : '😐'}
             </div>
-            <h2 className="text-2xl font-bold text-foreground mb-4">
+            <h2 className="text-lg sm:text-2xl font-bold text-foreground mb-3 sm:mb-4">
               Tumne diya: {rating}/5 ⭐
             </h2>
-            <div className="bg-primary/20 rounded-2xl p-6 mb-6 border-2 border-black">
-              <p className="text-xl font-bold text-foreground">
+            <div className="bg-primary/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 border-2 border-black">
+              <p className="text-base sm:text-xl font-bold text-foreground">
                 {result}
               </p>
             </div>
+            
+            <ShareButtons 
+              text={`Maine apne aap ko ${rating}/5 diya!\nWebsite ne kaha: ${result}`}
+              title="Rate Yourself Result"
+              className="mb-4"
+            />
+            
             <Button
               onClick={resetQuiz}
-              className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold py-4 border-4 border-black shadow-brutal"
+              className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold py-3 sm:py-4 border-2 sm:border-4 border-black shadow-brutal text-sm sm:text-base"
             >
               Phir Se Try Karo 🔄
             </Button>
