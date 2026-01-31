@@ -1,34 +1,40 @@
-# 🎉 Birthday Roast Website
+# 🎂 Pakad Na Paoge - Birthday Roast Website
 
-A fun, interactive birthday website with games, roasts, and entertainment features.
+A hilarious, interactive birthday website packed with games, roasts, quizzes, and pure bakchodi! 🤡
 
-## Features
+## 🔥 Live Demo
 
-- 🎮 **Tic-Tac-Toe** - A comedy twist game where the bot never loses
-- 🔥 **Roast Chatbot** - Get roasted in Hinglish style
+**[https://pakad-na-paoge.lovable.app](https://pakad-na-paoge.lovable.app)**
+
+## ✨ Features
+
+- 🎮 **Tic-Tac-Toe** - Comedy twist game where the bot never loses (it cheats!)
+- 🔥 **Roast Chatbot** - Get roasted in Hinglish style with AI
 - 🎯 **Truth or Dare** - AI-powered fun challenges
-- 🎂 **Birthday Wishes** - Personalized birthday messages
+- 🔮 **Future Predictor** - Hilarious fake predictions
+- 📝 **Funny Quiz** - Find out your personality type
+- ⭐ **Rate Yourself** - Self-rating with savage roasts
+- 📜 **Certificate Generator** - Generate funny certificates
 - 🎪 **Interactive Games** - Multiple fun activities
-- 📱 **Fully Responsive** - Works on all devices
-- 
-🔥**LIVE LINK**🔥
-https://nextwalajhoot.netlify.app/
+- 📱 **Mobile-First Design** - Perfect on all devices
+- 📤 **Social Sharing** - Share results on WhatsApp & Instagram
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-- React + TypeScript
-- Vite
-- Tailwind CSS
-- shadcn/ui
+- ⚛️ React 18 + TypeScript
+- ⚡ Vite
+- 🎨 Tailwind CSS
+- 🧩 shadcn/ui Components
+- ☁️ Backend powered by Lovable Cloud
 
-## Getting Started
+## 🚀 Getting Started
 
-```sh
+```bash
 # Clone the repository
 git clone <YOUR_GIT_URL>
 
 # Navigate to project directory
-cd <YOUR_PROJECT_NAME>
+cd pakad-na-paoge
 
 # Install dependencies
 npm install
@@ -37,22 +43,22 @@ npm install
 npm run dev
 ```
 
-## Deployment
+## 📦 Deployment
 
-This project is configured for easy deployment on Netlify, Vercel, or any static hosting.
+Configured for easy deployment on Netlify, Vercel, or any static hosting.
 
-### Netlify Deployment
-
-1. Connect your GitHub repository to Netlify
+### Netlify
+1. Connect your GitHub repository
 2. Build command: `npm run build`
 3. Publish directory: `dist`
 
-## Author
+## 👨‍💻 Author
 
 **Pruthvirajsinh Makwana**
-- Instagram: [@pruthvirajsinh__makwana](https://instagram.com/pruthvirajsinh__makwana)
-- Portfolio: [pruthvirajsinh.in](https://pruthvirajsinh.in)
+
+[![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/pruthvirajsinh__makwana)
+[![Portfolio](https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=About.me&logoColor=white)](https://pruthvirajsinh.in)
 
 ---
 
-*This is a vibe coding project* ✨
+Made with ❤️ and bakchodi | © 2024 Pakad Na Paoge
