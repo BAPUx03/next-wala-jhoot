@@ -1,4 +1,4 @@
-import { MousePointer2, Gift, Brain, HelpCircle, Shuffle, MessageCircle, Users, Star, Sparkles, Camera, BarChart3, Fingerprint, Drama, XCircle, Clock, Award, Search, Flame, Gamepad2 } from 'lucide-react';
+import { MousePointer2, Gift, Brain, HelpCircle, Shuffle, MessageCircle, Users, Star, Sparkles, Camera, BarChart3, Fingerprint, Drama, XCircle, Clock, Award, Search, Flame, Gamepad2, CircleDot, Cookie } from 'lucide-react';
 import { useMemePopup } from './MemePopup';
 
 interface FeatureCardProps {
@@ -48,6 +48,8 @@ export const FeatureGrid = ({ onFeatureSelect }: FeatureGridProps) => {
     { emoji: "🎯", icon: <MousePointer2 size={18} />, title: "Try Next Button", description: "Pakad sake toh pakad 😏", color: "hover:bg-pink-50 dark:hover:bg-pink-950/30", feature: "next-button" },
     { emoji: "🎂", icon: <Gift size={18} />, title: "Birthday Prank", description: "Gift? Haan haan... 🎁🤡", color: "hover:bg-orange-50 dark:hover:bg-orange-950/30", feature: "birthday" },
     { emoji: "🎮", icon: <Gamepad2 size={18} />, title: "Tic-Tac-Toe", description: "Fair game... trust me 🤡", color: "hover:bg-emerald-50 dark:hover:bg-emerald-950/30", feature: "tictactoe" },
+    { emoji: "🎡", icon: <CircleDot size={18} />, title: "Spin the Wheel", description: "Fate decide karega! 🎰", color: "hover:bg-gradient-to-r hover:from-pink-50 hover:to-yellow-50 dark:hover:from-pink-950/30 dark:hover:to-yellow-950/30", feature: "spinwheel" },
+    { emoji: "🥠", icon: <Cookie size={18} />, title: "Fortune Cookie", description: "Desi kismat ki baat 🔮", color: "hover:bg-amber-50 dark:hover:bg-amber-950/30", feature: "fortunecookie" },
     { emoji: "🎭", icon: <Flame size={18} />, title: "Truth & Dare", description: "Sach ya himmat? 😈🔥", color: "hover:bg-gradient-to-r hover:from-blue-50 hover:to-orange-50 dark:hover:from-blue-950/30 dark:hover:to-orange-950/30", feature: "truthdare" },
     { emoji: "⭐", icon: <Star size={18} />, title: "Rate Yourself", description: "Website judge karegi 😈", color: "hover:bg-yellow-50 dark:hover:bg-yellow-950/30", feature: "rate" },
     { emoji: "🔮", icon: <Sparkles size={18} />, title: "Future Predictor", description: "100% useless predictions 🙃", color: "hover:bg-purple-50 dark:hover:bg-purple-950/30", feature: "future" },
