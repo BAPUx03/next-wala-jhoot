@@ -8,7 +8,7 @@ A hilarious, interactive birthday website packed with games, roasts, quizzes, an
 
 ## 🔥 Live Demo
 
-**[https://pakad-na-paoge.lovable.app](https://pakad-na-paoge.lovable.app)**
+**[https://pakad-na-paoge.in](https://nextwalajhoot.netlify.app/)**
 
 ---
 
