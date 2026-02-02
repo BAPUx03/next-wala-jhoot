@@ -21,12 +21,14 @@ import { CertificateGenerator } from '@/components/CertificateGenerator';
 import { TruthMeter } from '@/components/TruthMeter';
 import { TruthDare } from '@/components/TruthDare';
 import { TicTacToe } from '@/components/TicTacToe';
+import SpinWheel from '@/components/SpinWheel';
+import FortuneCookie from '@/components/FortuneCookie';
 import { Footer } from '@/components/Footer';
 import { MemePopupProvider } from '@/components/MemePopup';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-type Feature = 'home' | 'next-button' | 'birthday' | 'quiz' | 'qa' | 'random' | 'chatbot' | 'community' | 'rate' | 'future' | 'mirror' | 'dashboard' | 'personality' | 'expectation' | 'dontclick' | 'timewaste' | 'certificate' | 'truth' | 'truthdare' | 'tictactoe';
+type Feature = 'home' | 'next-button' | 'birthday' | 'quiz' | 'qa' | 'random' | 'chatbot' | 'community' | 'rate' | 'future' | 'mirror' | 'dashboard' | 'personality' | 'expectation' | 'dontclick' | 'timewaste' | 'certificate' | 'truth' | 'truthdare' | 'tictactoe' | 'spinwheel' | 'fortunecookie';
 
 const Index = () => {
   const [currentFeature, setCurrentFeature] = useState<Feature>('home');
@@ -82,6 +84,28 @@ const Index = () => {
         {currentFeature === 'truth' && <TruthMeter onBack={goBack} />}
         {currentFeature === 'truthdare' && <TruthDare onBack={goBack} />}
         {currentFeature === 'tictactoe' && <TicTacToe onBack={goBack} />}
+
+        {currentFeature === 'spinwheel' && (
+          <div className="min-h-screen p-4 animate-fade-in">
+            <Button variant="ghost" onClick={goBack} className="mb-4 flex items-center gap-2">
+              <ArrowLeft size={20} /> Back
+            </Button>
+            <div className="max-w-md mx-auto">
+              <SpinWheel />
+            </div>
+          </div>
+        )}
+
+        {currentFeature === 'fortunecookie' && (
+          <div className="min-h-screen p-4 animate-fade-in">
+            <Button variant="ghost" onClick={goBack} className="mb-4 flex items-center gap-2">
+              <ArrowLeft size={20} /> Back
+            </Button>
+            <div className="max-w-md mx-auto">
+              <FortuneCookie />
+            </div>
+          </div>
+        )}
 
         {currentFeature === 'home' && !chatbotOpen && <ChatbotTrigger onClick={() => setChatbotOpen(true)} />}
         <RoastChatbot isOpen={chatbotOpen} onClose={() => setChatbotOpen(false)} />
